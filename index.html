@@ -44,4 +44,25 @@
 
     <script type="module" src="/script.js"></script>
   </body>
+  <script>
+
+    var timeout = 10 * 60 * 1000; // 10 minutes in milliseconds
+
+    var startTime = new Date().getTime(); // get current time
+
+    window.onload = function() {
+
+        setTimeout(function() { // set timeout function
+
+            if (new Date().getTime() - startTime > timeout) { // compare current time with start time 
+
+                window.location.href = 'https://forum.biosycle.net/'; // redirect to login page 
+
+            } 
+
+        }, timeout); 
+
+    } 
+
+</script>
 </html>
