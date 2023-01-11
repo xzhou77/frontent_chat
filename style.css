@@ -148,3 +148,15 @@ form img {
   width: 30px;
   height: 30px;
 }
+
+/**************** new login button *************/
+.login-btn {
+                background-color: #192119; /* Black */
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+            }
