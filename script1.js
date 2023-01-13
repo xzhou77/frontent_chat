@@ -122,29 +122,9 @@ form.addEventListener('keyup', (e) => {
 // --------------------------------------------------------------------------------
 // login and timer below
 
-var timeout = 10 * 60 * 1000; // 10 minutes in milliseconds
+var timeout = 60 * 60 * 1000; // 60 minutes in milliseconds
 
 var startTime = new Date().getTime(); // get current time
-
-alert("you have only 10 mins for testing without a valid login");
-
-/*
-//  const loginForm = document.getElementById("login-chat");
-const loginButton = document.getElementById("login-form-submit");
-
-loginButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  const username = document.getElementById("BS-user").value;
-  const password = document.getElementById("BS-password").value;
-
-  if (username === "user" && password === "test") {
-    alert("You have successfully logged in. You have 60 mins now.");
-    timeout = 60 * 60 * 1000;
-  } else {
-    alert("Wrong user name or password !");
-  }
-})
-*/
 
 window.onload = function() {
 
