@@ -3,6 +3,13 @@ import user from './assets_codex/assets/user.svg'
 
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
+// add a glboal menu const and variable
+const menuButton = document.getElementById("copy");
+const menuButton1 = document.getElementById("resubmit");
+const menuButton2 = document.getElementById("chinese");
+const menuButton3 = document.getElementById("english");
+
+let currentText = "";
 
 let loadInterval;
 
@@ -104,6 +111,8 @@ const handleSubmit = async (e) => {
         const parsedData = data.bot.trim(); // trims any trailing spaces/'\n' 
 
         typeText(messageDiv, parsedData);
+
+        currentText = parsedData; // Keep the current output
     } else {
         const err = await response.text();
 
@@ -152,9 +161,90 @@ window.onload = function() {
 
         if (new Date().getTime() - startTime > timeout) { // compare current time with start time 
 
-            window.location.href = 'login-page.html'; // redirect to login page 
+            window.location.href = 'https://glittering-palmier-c9aeed.netlify.app'; // redirect to login page 
 
         } 
 
     }, timeout);
+}
+
+// Add a funtion to response COPY menu
+menuButton.addEventListener("click", (e) =>{
+    navigator.clipboard.writeText(currentText);
+
+})
+
+menuButton1.addEventListener("click", (e)=>{
+    handleRewrite(1);
+})
+
+menuButton2.addEventListener("click", (e)=>{
+    handleRewrite(2);
+})
+
+menuButton3.addEventListener("click", (e)=>{
+    handleRewrite(3);
+})
+
+async function handleRewrite(menuItem) {
+    const data = new FormData(form);
+
+    // user's chatstripe
+    chatContainer.innerHTML += chatStripe(false, data.get('prompt'))
+
+    // to clear the textarea input
+    form.reset();
+
+    // bot's chatstripe
+    const uniqueId = generateUniqueId();
+    chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
+
+    // to focus scroll to the bottom
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+
+    // specific message div
+    const messageDiv = document.getElementById(uniqueId);
+
+    // messageDiv.innerHTML = "..."
+    loader(messageDiv);
+
+    // More options:
+    var queryText = "?";
+    if (menuItem === 1) {
+            queryText =  "please rewrite: " + currentText +"\n";
+    }
+    else if (menuItem === 2) {
+            queryText = "please translate the following to Chinese: " + currentText + "\n";
+    }
+    else if (menuItem === 3) {
+            queryText = "please translate the following to English: " + currentText + "\n";
+    }
+
+    const response = await fetch('https://biosycle-chat.onrender.com', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+                prompt: queryText
+
+        })
+    })
+
+    clearInterval(loadInterval)
+    messageDiv.innerHTML = " "
+
+    if (response.ok) {
+        const data = await response.json();
+        const parsedData = data.bot.trim(); // trims any trailing spaces/'\n'
+
+        typeText(messageDiv, parsedData);
+        currentText = parsedData;
+
+    } else {
+        const err = await response.text();
+
+        messageDiv.innerHTML = "Something went wrong";
+        alert(err);
+    }
 }

@@ -160,3 +160,25 @@ form img {
                 display: inline-block;
                 font-size: 16px;
             }
+
+/********** Copy and Rewrite ****************/
+.menubtn {
+  background-color: #181D38;
+  color: #697292;
+  width: 1,7rem;
+  height: 2.3rem;
+  border-radius: 3rem;
+  border-style: none;
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  box-shadow: 0 307px 290px 0 #070A1E;
+}
+
+.menubtn:hover {
+  background-color: rgba(24, 29, 56,0.8);
+  color: rgba(105, 114, 146,0.8);
+  border: 3px solid #697292;
+}
