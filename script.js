@@ -161,7 +161,7 @@ window.onload = function() {
 
         if (new Date().getTime() - startTime > timeout) { // compare current time with start time 
 
-            window.location.href = 'https://glittering-palmier-c9aeed.netlify.app'; // redirect to login page 
+            window.location.href = 'https://login.biosycle.wiki/'; // redirect to login page 
 
         } 
 
